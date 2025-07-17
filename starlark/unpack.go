@@ -246,11 +246,11 @@ func UnpackArg(v Value, ptr any) error {
 		*uint, *uint8, *uint16, *uint32, *uint64, *uintptr:
 		return AsInt(v, ptr)
 	case *float64:
-		f, ok := v.(Float)
+		f, ok := AsFloat(v)
 		if !ok {
-			return fmt.Errorf("got %s, want float", v.Type())
+			return fmt.Errorf("got %s, want int or float", v.Type())
 		}
-		*ptr = float64(f)
+		*ptr = f
 	case **List:
 		list, ok := v.(*List)
 		if !ok {
